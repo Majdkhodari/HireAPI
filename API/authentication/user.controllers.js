@@ -1,22 +1,38 @@
-const User = require("../../models/Users");
+// const { JWT_SECRET, JWT_EXPIRATION_MS } = require("../../config/keys");
+const User = require("../../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { JWT_SECRET, JWT_EXPIRATION_MS } = require("../../config/keys");
+const dotenv = require("dotenv");
+dotenv.config();
+const JWT_EXPIRATION_MS = +process.env.JWT_EXPIRATION_MS;
+const JWT_SECRET = process.env.JWT_SECRET;
+
+exports.getUsers = async (req, res, next) => {
+  try {
+    const allUsers = await User.find().populate("chats");
+    res.status(200).json(allUsers);
+  } catch (error) {
+    next(error);
+  }
+};
 
 exports.signup = async (req, res, next) => {
   try {
+    if (req.file) {
+      req.body.image = `${req.file.path}`;
+    }
     const { password } = req.body;
     const saltRounds = 10;
     req.body.password = await bcrypt.hash(password, saltRounds);
 
     const newUser = await User.create(req.body);
     const payload = {
-      id: newUser._id,
+      _id: newUser._id,
       username: newUser.username,
       exp: Date.now() + JWT_EXPIRATION_MS,
     };
     const token = jwt.sign(JSON.stringify(payload), JWT_SECRET);
-    res.status(201).json({ token });
+    return res.status(201).json({ token });
   } catch (error) {
     next(error);
   }
@@ -25,10 +41,10 @@ exports.signup = async (req, res, next) => {
 exports.signin = (req, res, next) => {
   const user = req.user;
   const payload = {
-    id: user._id,
+    _id: user._id,
     username: user.username,
     exp: Date.now() + JWT_EXPIRATION_MS,
   };
   const token = jwt.sign(JSON.stringify(payload), JWT_SECRET);
-  res.status(201).json({ token });
+  return res.status(201).json({ token });
 };
