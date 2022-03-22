@@ -32,6 +32,12 @@ app.use((req, res, next) => {
 const userRoutes = require("./api/authentication/user.routers");
 app.use("/api/users", userRoutes);
 
+const companyRoutes = require("./api/company/company.routers");
+app.use("/api/company", companyRoutes);
+
+const jobSeekerRoutes = require("./api/JobSeeker/jobSeeker.router");
+app.use("/api/jobseeker", jobSeekerRoutes);
+
 app.use("/media", express.static(path.join(__dirname, "media")));
 
 // app.use((req, res, next) => {

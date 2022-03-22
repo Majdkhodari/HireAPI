@@ -9,10 +9,10 @@ const {
 
 const router = express.Router();
 
-router.get("/jobseeker", fetchJobSeeker);
-router.get("/jobseekers", fetchJobSeekers);
-router.post("/createJobseeker", createJobSeeker);
-router.delete("/deleteJobSeeker", deleteJobSeeker);
-router.post("/", updatejobSeeker);
+// router.get("/", fetchJobSeeker);
+router.get("/", fetchJobSeekers);
+// router.post("/createJobseeker", createJobSeeker);
+// router.delete("/deleteJobSeeker", deleteJobSeeker);
+// router.post("/", updatejobSeeker);
 
 module.exports = router;

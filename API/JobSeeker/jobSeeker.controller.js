@@ -11,7 +11,7 @@ exports.fetchJobSeeker = async (userId, next) => {
 
 exports.fetchJobSeekers = async (req, res, next) => {
   try {
-    const jobSeekers = await jobSeekers.find();
+    const jobSeekers = await JobSeeker.find();
     return res.json(jobSeekers);
   } catch (error) {
     next(error);

@@ -8,13 +8,14 @@ exports.localStrategy = new LocalStrategy(async (username, password, done) => {
     if (user) {
       const passwordMatch = await bcrypt.compare(password, user.password);
       if (passwordMatch) done(null, user);
-      else done(null, false);
-      const error = {
-        message: "Unauthorized",
-        status: 401,
-      };
+      else {
+        const error = {
+          message: "Unauthorized",
+          status: 401,
+        };
+        done(error);
+      }
     }
-    done(error);
   } catch (error) {
     done(error);
   }

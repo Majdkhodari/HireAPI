@@ -9,7 +9,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 exports.getUsers = async (req, res, next) => {
   try {
-    const allUsers = await User.find().populate("chats");
+    const allUsers = await User.find();
     res.status(200).json(allUsers);
   } catch (error) {
     next(error);
