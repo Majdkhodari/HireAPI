@@ -3,6 +3,7 @@ const { model, Schema } = require("mongoose");
 
 const jobSeeker = new Schema(
   {
+    prefix: { type: String },
     firstname: { type: String },
     lastname: { type: String },
     education: [{ type: Schema.Types.ObjectId, ref: "Education" }],
