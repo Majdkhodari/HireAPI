@@ -7,6 +7,24 @@ dotenv.config();
 const JWT_EXPIRATION_MS = +process.env.JWT_EXPIRATION_MS;
 const JWT_SECRET = process.env.JWT_SECRET;
 
+exports.fetchUser = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.body.userId);
+    res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.getOwner = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user._id);
+    res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
+};
+
 exports.getUsers = async (req, res, next) => {
   try {
     const allUsers = await User.find();
