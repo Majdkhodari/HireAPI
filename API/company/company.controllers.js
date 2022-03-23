@@ -1,4 +1,5 @@
 const Company = require("../../models/Company");
+const User = require("../../models/User");
 
 // exports.fetchCompany = async (userId, next) => {
 //   try {
@@ -18,24 +19,22 @@ exports.fetchCompanies = async (req, res, next) => {
   }
 };
 
-// exports.createCompany = async (req, res, next) => {
-//   try {
-//     console.log(req.body.image);
-//     if (req.file) {
-//       req.body.image = `/${req.file.path}`;
-//       req.body.image = req.body.image.replace("\\", "/");
-//     }
-//     const { userId } = req.params;
-//     req.body.user = userId;
-//     console.log(req.body);
-//     const newCompany = await Company.create(req.body);
-//     await Company.findOneAndUpdate(
-//       { _id: userId },
-//       { $push: { company: newCompany._id } }
-//     );
-//     return res.status(201).json(newCompany);
-//   } catch (error) {}
-// };
+exports.createCompany = async (req, res, next) => {
+  try {
+    // if (req.file) {
+    //   req.body.image = `/${req.file.path}`;
+    //   req.body.image = req.body.image.replace("\\", "/");
+    // }
+    //*create new company:
+    req.body.user = req.user._id;
+    console.log(req.body, "Hassan testing");
+    const newCompany = await Company.create(req.body);
+    console.log(req.user, "hhhebfdjr");
+    return res.status(201).json(newCompany);
+  } catch (error) {
+    next(error);
+  }
+};
 
 // exports.updateCompany = async (req, res, next) => {
 //   try {
