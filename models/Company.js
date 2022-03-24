@@ -4,7 +4,7 @@ const { model, Schema } = require("mongoose");
 const companySchema = new Schema(
   {
     type: { type: String },
-    founders: { type: String },
+    founders: { type: String }, // founders? its not an array right? founder will be better naming convention
     yearEstablished: { type: Number },
     size: { type: String },
     about: { type: String },

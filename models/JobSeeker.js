@@ -8,7 +8,7 @@ const jobSeeker = new Schema(
     lastname: { type: String },
     education: [{ type: Schema.Types.ObjectId, ref: "Education" }],
     experience: [{ type: Schema.Types.ObjectId, ref: "Experience" }],
-    skils: { type: String },
+    skils: { type: String }, //typo -> skills. but since its not an array the better naming convention is skill
     phone: { type: Number },
     gender: { type: String },
     user: { type: Schema.Types.ObjectId, ref: "User" },

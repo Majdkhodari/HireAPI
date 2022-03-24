@@ -1,3 +1,4 @@
+//remove this comment👇🏻
 // const { JWT_SECRET, JWT_EXPIRATION_MS } = require("../../config/keys");
 const User = require("../../models/User");
 const bcrypt = require("bcrypt");
@@ -9,7 +10,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 exports.getUsers = async (req, res, next) => {
   try {
-    const allUsers = await User.find();
+    const allUsers = await User.find(); // users better naming convention than allUsers + are you sending the user's password in the respone????? yes you are! DON'T 😭
     res.status(200).json(allUsers);
   } catch (error) {
     next(error);

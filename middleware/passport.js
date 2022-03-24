@@ -9,7 +9,7 @@ secret = process.env.JWT_SECRET;
 
 exports.localStrategy = new LocalStrategy(async (username, password, done) => {
   try {
-    const user = await User.findOne({ username: username });
+    const user = await User.findOne({ username: username }); // {username} === {username:username}  which one you like more? I prefer the 1st one. Can you please use it? thanks
     const passwordMatch = user
       ? await bcrypt.compare(password, user.password)
       : false;
@@ -30,6 +30,7 @@ exports.jwtStrategy = new JwtStrategy(
   },
   async (jwtPayload, done) => {
     if (Date.now() > +jwtPayload.exp) {
+      // jwtPayload.exp is a string you don't need to add +
       return done(null, flase);
     }
     try {

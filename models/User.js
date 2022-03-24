@@ -26,9 +26,9 @@ const UserSchema = new Schema(
     chats: [{ type: Schema.Types.ObjectId, ref: "Chat" }],
     search: { type: String },
     status: { type: String },
-    Languages: { type: String },
+    Languages: { type: String }, // can you add more than one into a string? i think its better to have it as an array
     loginType: { type: String },
-    signUpAs: { type: String },
+    signUpAs: { type: String }, //userType will be better
   },
   { timestamps: true }
 );

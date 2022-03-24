@@ -8,8 +8,9 @@ dotenv.config();
 const { localStrategy, jwtStrategy } = require("./middleware/passport");
 
 const app = express();
+// add a line here👈🏻
 app.use(cors());
-
+// remove this line👈🏻
 app.use(passport.initialize());
 passport.use(localStrategy);
 passport.use(jwtStrategy);
@@ -28,7 +29,8 @@ app.use((req, res, next) => {
   );
   next();
 });
-
+// imports before creating your express app please!!!
+// move all the imports 👇🏻 up
 const userRoutes = require("./api/authentication/user.routers");
 app.use("/api/users", userRoutes);
 
