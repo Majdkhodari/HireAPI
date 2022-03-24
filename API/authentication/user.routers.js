@@ -5,6 +5,7 @@ const {
   getUsers,
   getOwner,
   fetchUser,
+  profileUpdate,
 } = require("./user.controllers");
 const passport = require("passport");
 const upload = require("../../middleware/multer");
@@ -23,6 +24,12 @@ router.post(
   "/signin",
   passport.authenticate("local", { session: false }),
   signin
+);
+
+router.put(
+  "/editprofile",
+  passport.authenticate("jwt", { session: false }),
+  profileUpdate
 );
 
 module.exports = router;
