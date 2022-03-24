@@ -3,6 +3,8 @@ const User = require("../../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
+const JobSeeker = require("../../models/JobSeeker");
+const Company = require("../../models/Company");
 dotenv.config();
 const JWT_EXPIRATION_MS = +process.env.JWT_EXPIRATION_MS;
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -29,6 +31,38 @@ exports.getUsers = async (req, res, next) => {
   try {
     const allUsers = await User.find();
     res.status(200).json(allUsers);
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.profileUpdate = async (req, res, next) => {
+  try {
+    // if (req.file) {
+    //   req.body.image = `${req.protocol}://${req.get("host")}/${req.file.path}`;
+    // }
+    let newProfile;
+    if (req.user.signUpAs === "JobSeeker") {
+      newProfile = await JobSeeker.findByIdAndUpdate(
+        { _id: req.body.profile._id },
+        req.body.profile,
+        { new: true, runValidators: true } // returns the updated product
+      );
+    } else if (req.user.signUpAs === "Company") {
+      newProfile = await Company.findByIdAndUpdate(
+        { _id: req.body.profile._id },
+        req.body.profile,
+        { new: true, runValidators: true } // returns the updated product
+      );
+    }
+
+    const newOwnerProfile = await User.findByIdAndUpdate(
+      { _id: req.user._id },
+      req.body.owner,
+      { new: true, runValidators: true } // returns the updated product
+    );
+
+    res.json({ owner: newOwnerProfile, profile: newProfile });
   } catch (error) {
     next(error);
   }
