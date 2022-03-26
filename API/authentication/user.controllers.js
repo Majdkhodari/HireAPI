@@ -38,9 +38,10 @@ exports.getUsers = async (req, res, next) => {
 
 exports.profileUpdate = async (req, res, next) => {
   try {
-    // if (req.file) {
-    //   req.body.image = `${req.protocol}://${req.get("host")}/${req.file.path}`;
-    // }
+    if (req.file) {
+      req.body.picture = `/${req.file.path}`;
+      req.body.picture = req.body.picture.replace("\\", "/");
+    }
     let newProfile;
     if (req.user.signUpAs === "JobSeeker") {
       newProfile = await JobSeeker.findByIdAndUpdate(
