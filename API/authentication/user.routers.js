@@ -19,7 +19,7 @@ router.get(
   getOwner
 );
 router.get("/fetchUser", fetchUser);
-router.post("/signup", upload.single("image"), signup);
+router.post("/signup", upload.single("picture"), signup);
 router.post(
   "/signin",
   passport.authenticate("local", { session: false }),

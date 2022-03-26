@@ -71,7 +71,8 @@ exports.profileUpdate = async (req, res, next) => {
 exports.signup = async (req, res, next) => {
   try {
     if (req.file) {
-      req.body.image = `${req.file.path}`;
+      req.body.picture = `/${req.file.path}`;
+      req.body.picture = req.body.picture.replace("\\", "/");
     }
     const { password } = req.body;
     const saltRounds = 10;
