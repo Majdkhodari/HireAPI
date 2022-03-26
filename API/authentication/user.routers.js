@@ -29,6 +29,7 @@ router.post(
 router.put(
   "/editprofile",
   passport.authenticate("jwt", { session: false }),
+  upload.single("picture"),
   profileUpdate
 );
 
