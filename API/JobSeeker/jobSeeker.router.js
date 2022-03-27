@@ -1,7 +1,7 @@
 const express = require("express");
-const upload = require("../../middleware/multer");
+const upload = require("../../middleware/multer"); // remove unused import
 const passport = require("passport");
-
+//Kindly remove all the commented code if you are not goona use it.
 const {
   // fetchJobSeeker,
   fetchJobSeekers,

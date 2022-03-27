@@ -1,5 +1,5 @@
 const JobSeeker = require("../../models/JobSeeker");
-
+//****please remove all the commented code and imports if you wont use it!
 // exports.fetchJobSeeker = async (userId, next) => {
 //   try {
 //     const jobSeeker = await jobSeeker.findById(jobSeekerId);
@@ -26,7 +26,7 @@ exports.createJobSeeker = async (req, res, next) => {
     // }
     //*create new company:
     req.body.user = req.user._id;
-    console.log(req.body, "Hassan testing");
+    console.log(req.body, "Hassan testing"); // remove all the console logs after testing
     const newJobSeeker = await JobSeeker.create(req.body);
     console.log(req.user, "hhhebfdjr");
     return res.status(201).json(newJobSeeker);

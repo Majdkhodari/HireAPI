@@ -1,6 +1,6 @@
 const Company = require("../../models/Company");
-const User = require("../../models/User");
-
+const User = require("../../models/User"); // remove unused import
+// remove commented code if you wont use it thank you!
 // exports.fetchCompany = async (userId, next) => {
 //   try {
 //     const Company = await company.findById(jobSeekerId);
@@ -13,7 +13,7 @@ const User = require("../../models/User");
 exports.fetchCompanies = async (req, res, next) => {
   try {
     const companies = await Company.find();
-    return res.json(companies);
+    return res.json(companies); // where is the status?
   } catch (error) {
     next(error);
   }
@@ -27,7 +27,7 @@ exports.createCompany = async (req, res, next) => {
     // }
     //*create new company:
     req.body.user = req.user._id;
-    console.log(req.body, "Hassan testing");
+    console.log(req.body, "Hassan testing"); //PLEASE REMOVE ALL THE CONSOLE LOGS AFTER TESTING 🤓
     const newCompany = await Company.create(req.body);
     console.log(req.user, "hhhebfdjr");
     return res.status(201).json(newCompany);
