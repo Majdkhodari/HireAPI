@@ -11,6 +11,9 @@ const jobSeeker = new Schema(
     skils: { type: String },
     phone: { type: Number },
     gender: { type: String },
+    skills: { type: String },
+    about: { type: String },
+    age: { type: Number },
     user: { type: Schema.Types.ObjectId, ref: "User" },
   },
   { timestamps: true }
