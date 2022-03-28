@@ -5,7 +5,8 @@ const {
   getUsers,
   getOwner,
   fetchUser,
-  profileUpdate,
+  bioUpdate,
+  ownerUpdate,
 } = require("./user.controllers");
 const passport = require("passport");
 const upload = require("../../middleware/multer");
@@ -27,10 +28,15 @@ router.post(
 );
 
 router.put(
-  "/editprofile",
+  "/editOwner",
   passport.authenticate("jwt", { session: false }),
   upload.single("picture"),
-  profileUpdate
+  ownerUpdate
+);
+router.put(
+  "/editBio",
+  passport.authenticate("jwt", { session: false }),
+  bioUpdate
 );
 
 module.exports = router;

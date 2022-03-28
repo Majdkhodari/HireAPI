@@ -36,34 +36,45 @@ exports.getUsers = async (req, res, next) => {
   }
 };
 
-exports.profileUpdate = async (req, res, next) => {
+exports.ownerUpdate = async (req, res, next) => {
   try {
     if (req.file) {
       req.body.picture = `/${req.file.path}`;
       req.body.picture = req.body.picture.replace("\\", "/");
     }
+    const newOwnerProfile = await User.findByIdAndUpdate(
+      { _id: req.user._id },
+      req.body,
+      { new: true, runValidators: true } // returns the updated product
+    );
+
+    return res.status(200).json(newOwnerProfile);
+  } catch (error) {
+    next(error);
+  }
+};
+exports.bioUpdate = async (req, res, next) => {
+  try {
+    // if (req.file) {
+    //   req.body.picture = `/${req.file.path}`;
+    //   req.body.picture = req.body.picture.replace("\\", "/");
+    // }
     let newProfile;
     if (req.user.signUpAs === "JobSeeker") {
       newProfile = await JobSeeker.findByIdAndUpdate(
-        { _id: req.body.profile._id },
-        req.body.profile,
+        { _id: req.body._id },
+        req.body,
         { new: true, runValidators: true } // returns the updated product
       );
     } else if (req.user.signUpAs === "Company") {
       newProfile = await Company.findByIdAndUpdate(
-        { _id: req.body.profile._id },
-        req.body.profile,
+        { _id: req.body._id },
+        req.body,
         { new: true, runValidators: true } // returns the updated product
       );
     }
 
-    const newOwnerProfile = await User.findByIdAndUpdate(
-      { _id: req.user._id },
-      req.body.owner,
-      { new: true, runValidators: true } // returns the updated product
-    );
-
-    res.json({ owner: newOwnerProfile, profile: newProfile });
+    return res.status(200).json(newProfile);
   } catch (error) {
     next(error);
   }
