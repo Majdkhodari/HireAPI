@@ -38,6 +38,9 @@ app.use("/api/company", companyRoutes);
 const jobSeekerRoutes = require("./api/JobSeeker/jobSeeker.router");
 app.use("/api/jobseeker", jobSeekerRoutes);
 
+const chatRoutes = require("./api/chat/chat.router");
+app.use("/api/chats", chatRoutes);
+
 app.use("/media", express.static(path.join(__dirname, "media")));
 
 //? Error handler Middleware
