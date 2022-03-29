@@ -20,7 +20,7 @@ exports.fetchUser = async (req, res, next) => {
 
 exports.getOwner = async (req, res, next) => {
   try {
-    const user = await User.findById(req.user._id);
+    const user = await User.findById(req.user._id).populate("chats");
     res.status(200).json(user);
   } catch (error) {
     next(error);
