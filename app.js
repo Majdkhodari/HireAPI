@@ -10,6 +10,11 @@ const { localStrategy, jwtStrategy } = require("./middleware/passport");
 const app = express();
 app.use(cors());
 
+const http = require("http");
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server);
+
 app.use(passport.initialize());
 passport.use(localStrategy);
 passport.use(jwtStrategy);
@@ -56,8 +61,20 @@ app.use((req, res, next) => {
   res.status(404).json({ msg: "Path Not Found" });
 });
 
+io.on("connection", (socket) => {
+  console.log("a user connected");
+  socket.on("disconnect", () => {
+    console.log("user disconnected");
+  });
+
+  socket.on("backendChat", (msg) => {
+    console.log(msg);
+    socket.broadcast.emit("chat", "hi i am from backend");
+  });
+});
+
 const PORT = process.env.PORT;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Listening to port ${PORT}`);
   connectDB();
 });
